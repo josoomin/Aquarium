@@ -83,7 +83,7 @@ namespace josoomin
 
                 if (Input.GetKey(KeyCode.R))
                 {
-                    SceneManager.LoadScene("AquaGame");
+                    Restart();
                 }
             }
         }
@@ -97,9 +97,14 @@ namespace josoomin
 
                 if (Input.GetKey(KeyCode.R))
                 {
-                    SceneManager.LoadScene("AquaGame");
+                    Restart();
                 }
             }
+        }
+
+        public void Restart()
+        {
+            SceneManager.LoadScene("AquaGame");
         }
     }
 }
