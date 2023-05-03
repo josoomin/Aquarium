@@ -17,8 +17,8 @@ namespace josoomin
         [SerializeField] int _moveOrStop;
         [SerializeField] float _moveTime;
         [SerializeField] float _stayTime;
-        [SerializeField] float _time = 0;
-        [SerializeField] float _hungry = 100;
+        [SerializeField] float _hungry;
+        [SerializeField] float _overTime = 0;
         [SerializeField] float _dropCoinTime = 0;
         [SerializeField] float _reTime = 0;
         [SerializeField] float _eatMoveTime;
@@ -32,6 +32,7 @@ namespace josoomin
 
         int _dropNowTime = 20;
         int _fishDeleteTime = 0;
+        int _myFoodNum;
 
         bool _eat;
         bool _die = false;
@@ -41,6 +42,8 @@ namespace josoomin
         float _minValue = 2.0f;
         float _maxValue = 10.0f;
 
+        float _fullHungry = 100;
+
         Rigidbody2D _myRigid;
         SpriteRenderer _rend;
 
@@ -48,6 +51,7 @@ namespace josoomin
 
         void Start()
         {
+            _hungry = _fullHungry;
             _myani = GetComponent<Animator>();
             _fishColor = GetComponent<Renderer>();
             _myRigid = GetComponent<Rigidbody2D>();
@@ -73,7 +77,7 @@ namespace josoomin
 
             _moveOrStop = Random.Range(0, 10);
 
-            if (_die == false)
+            if (_die == false && _eat == false)
             {
                 if (_moveOrStop % 2 == 0)
                 {
@@ -97,12 +101,13 @@ namespace josoomin
                 {
                     _stayTime = Random.Range(_minValue, _maxValue);
 
-                    while (_stayTime >= _time)
+                    while (_stayTime >= _overTime)
                     {
-                        _time += Time.deltaTime;
-                        if (_time >= _stayTime)
+                        _overTime += Time.deltaTime;
+
+                        if (_stayTime <= _overTime)
                         {
-                            _time = 0;
+                            _overTime = 0;
                             break;
                         }
                     }
@@ -117,22 +122,23 @@ namespace josoomin
             if (_hungry <= _hungryLow && _die == false)
             {
                 EatToMove();
-                if (_hungry <= _hungryMiddle && _die == false)
+                if (_hungry <= _hungryMiddle)
                 {
                     _fishColor.material.color = Color.green;
 
-                    if (_hungry <= _hungryHigh && _die == false)
+                    if (_hungry <= _hungryHigh)
                     {
+                        _fishColor.material.color = Color.white;
                         gameObject.transform.position = transform.position;
                         _die = true;
                         _myani.SetTrigger("Die");
                         return;
                     }
                 }
+
                 else
                 {
                     _fishColor.material.color = Color.white;
-                    _eat = false;
                 }
             }
         }
@@ -141,7 +147,7 @@ namespace josoomin
         {
             _dropCoinTime += Time.deltaTime;
 
-            if(_dropCoinTime >= _dropNowTime && _die == false)
+            if (_dropCoinTime >= _dropNowTime && _die == false)
             {
                 if (gameObject.tag == "Guppy")
                 {
@@ -171,7 +177,6 @@ namespace josoomin
 
         void EatToMove()
         {
-            Debug.Log("∏‘¿∏∑Ø ¿Ãµø");
             _eat = true;
 
             SearchFood();
@@ -193,41 +198,72 @@ namespace josoomin
 
             }
 
-            Vector2 pos1 = transform.position;
-            Vector2 pos2 = _food.transform.position;
-            Vector2 dir = pos1 - pos2;
-            if (dir.magnitude < 0.5f)
+            if (_food != null)
             {
-                Eat(_food);
+                Vector2 pos1 = transform.position;
+                Vector2 pos2 = _food.transform.position;
+                Vector2 dir = pos1 - pos2;
+                if (dir.magnitude < 0.5f)
+                {
+                    Eat(_food);
+                }
             }
         }
 
         void SearchFood()
         {
-            //if (gameObject.tag == "Guppy")
-            //{
-            //    _food = Aquarium.I._foodList[0].gameObject;
-            //}
+            if (gameObject.tag == "Guppy")
+            {
+                List<Food> foli = Aquarium.I._foodList;
 
-            //if (gameObject.tag == "Piranha")
-            //{
-            //    List<Fish> fili = Aquarium.I._fishList;
-            //    if (fili == null) return;
+                if (foli == null) return;
 
-            //    for (int i = 0; i <= fili.Count; i++)
-            //    {
-            //        if (fili[i].gameObject.tag == "Guppy")
-            //        {
-            //            _food = fili[i].gameObject;
-            //        }
-            //    }
-            //}
+                else
+                {
+                    for (int i = 0; i <= foli.Count - 1; i++)
+                    {
+                        if (foli[i].tag == "Food")
+                        {
+                            _food = foli[i].gameObject;
+                            _myFoodNum = i;
+                        }
+                    }
+                }
+            }
+
+            if (gameObject.tag == "Piranha")
+            {
+                List<Fish> fili = Aquarium.I._fishList;
+
+                if (fili == null) return;
+
+                else
+                {
+                    for (int i = 0; i <= fili.Count - 1; i++)
+                    {
+                        if (fili[i].tag == "Guppy")
+                        {
+                            _food = fili[i].gameObject;
+                            _myFoodNum = i;
+                        }
+                    }
+                }
+            }
         }
 
         void Eat(GameObject food)
         {
+            _myani.SetTrigger("Eat");
             Destroy(food);
-            _hungry = 100;
+            _hungry = _fullHungry;
+            _food = null;
+            _eat = false;
+
+            if (gameObject.tag == "Guppy")
+            Aquarium.I._foodList.RemoveAt(_myFoodNum);
+
+            if (gameObject.tag == "Piranha")
+            Aquarium.I._fishList.RemoveAt(_myFoodNum);
         }
 
         IEnumerator Die()
@@ -253,7 +289,6 @@ namespace josoomin
                     Destroy(gameObject);
                 }
             }
-            Destroy(gameObject);
         }
     }
 }

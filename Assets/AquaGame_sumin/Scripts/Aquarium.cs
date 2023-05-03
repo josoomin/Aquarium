@@ -43,6 +43,7 @@ namespace josoomin
 
         void Start()
         {
+            Application.targetFrameRate = 60;
             _money = _startMoney;
             _clearScreen.SetActive(false);
         }
@@ -51,31 +52,6 @@ namespace josoomin
         {
             _moneyText.text =  _money.ToString();
             GameClear();
-
-            //_gameTime += Time.deltaTime;
-
-            //if(_gameTime > 10.0f )
-            //{
-            //    for(int i=0; i<_fishList.Count; i++)
-            //    {
-            //        Fish f = _fishList[i];
-
-            //        if( f is Guppy)
-            //        {
-            //            Debug.Log("f is Guppy");
-            //        }
-            //        else if( f is Piranha)
-            //        {
-            //            Debug.Log("f is Piranha");
-
-            //            //Piranha p = (Piranha)f;
-            //            Piranha p = f as Piranha;
-
-            //            p.EatGuppy();
-            //        }
-
-            //    }
-            //}
         }
 
         public void CreateFood()
