@@ -21,20 +21,17 @@ namespace josoomin
         public GameObject _allCoin;
 
         public GameObject _clearScreen;
+        public GameObject _gameOverScreen;
 
-        public Guppy _tempGuppy;
-        public Piranha _tempPiranha;
+        int _foodPrice = 5;
 
         public int _money;
         int _startMoney = 1000;
-        int _foodPrice = 5;
-        int _clearMoney = 10000;
+        int _clearMoney = 5000;
 
         public Text _moneyText;
 
         public GameObject _foodPrefab;
-
-        public RectTransform _noClickArea;
 
         public void Awake()
         {
@@ -43,15 +40,18 @@ namespace josoomin
 
         void Start()
         {
+            Screen.SetResolution(1080, 720, true);
             Application.targetFrameRate = 60;
             _money = _startMoney;
             _clearScreen.SetActive(false);
+            _gameOverScreen.SetActive(false);
         }
 
         void Update()
         {
             _moneyText.text =  _money.ToString();
             GameClear();
+            GameOver();
         }
 
         public void CreateFood()
@@ -80,6 +80,20 @@ namespace josoomin
             {
                 Time.timeScale = 0;
                 _clearScreen.SetActive(true);
+
+                if (Input.GetKey(KeyCode.R))
+                {
+                    SceneManager.LoadScene("AquaGame");
+                }
+            }
+        }
+
+        void GameOver()
+        {
+            if (_money < 25 && _fishList.Count == 0)
+            {
+                Time.timeScale = 0;
+                _gameOverScreen.SetActive(true);
 
                 if (Input.GetKey(KeyCode.R))
                 {

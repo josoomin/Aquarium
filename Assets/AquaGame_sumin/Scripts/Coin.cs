@@ -7,9 +7,9 @@ namespace josoomin
     public class Coin : MonoBehaviour
     {
         int _coinDeleteTime = 0;
-        float _coinDown = 0.001f;
-        int _silverCoin = 10;
-        int _goldCoin = 30;
+        float _coinDown = 0.01f;
+        int _silverCoin = 20;
+        int _goldCoin = 100;
 
         [SerializeField] bool _move = true;
         SpriteRenderer _sprRen;

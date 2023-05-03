@@ -7,10 +7,12 @@ namespace josoomin
     public class Food : MonoBehaviour
     {
         int _foodDeleteTime = 0;
-        float _foodDown = 0.001f;
+        float _foodDown = 0.01f;
 
         bool _move = true;
         SpriteRenderer _sprRen;
+
+        public GameObject _eatMe;
 
         void Start()
         {
@@ -50,10 +52,20 @@ namespace josoomin
             {
                 if (foli[i] == this)
                 {
+                    EatMe();
+
                     foli.RemoveAt(i);
                     Destroy(gameObject);
+
                 }
             }
+        }
+
+        void EatMe()
+        {
+            if (_eatMe == null) return;
+            Fish _fish = _eatMe.GetComponent<Fish>();
+            _fish._food = null;
         }
     }
 }

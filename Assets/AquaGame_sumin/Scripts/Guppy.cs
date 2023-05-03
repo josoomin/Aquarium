@@ -7,6 +7,8 @@ namespace josoomin
 {
     public class Guppy : Fish
     {
+        public GameObject _eatMe;
+
         public void EatFood()
         {
 
