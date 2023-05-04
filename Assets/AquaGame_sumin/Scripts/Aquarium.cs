@@ -23,10 +23,14 @@ namespace josoomin
         public GameObject _clearScreen;
         public GameObject _gameOverScreen;
 
+        public GameObject _optionPage;
+
+        GameObject _foodArea;
+
         int _foodPrice = 5;
 
         public int _money;
-        int _startMoney = 1000;
+        int _startMoney = 300;
         int _clearMoney = 5000;
 
         public Text _moneyText;
@@ -42,6 +46,8 @@ namespace josoomin
         {
             Screen.SetResolution(1080, 720, true);
             Application.targetFrameRate = 60;
+            _foodArea = transform.Find("FoodArea").gameObject;
+            _optionPage.SetActive(false);
             _money = _startMoney;
             _clearScreen.SetActive(false);
             _gameOverScreen.SetActive(false);
@@ -102,9 +108,30 @@ namespace josoomin
             }
         }
 
+        public void Option()
+        {
+            Time.timeScale = 0;
+            _foodArea.SetActive(false);
+            _optionPage.SetActive(true);
+        }
+
+        public void BackButton()
+        {
+            Time.timeScale = 1;
+            _foodArea.SetActive(true);
+            _optionPage.SetActive(false);
+        }
+
         public void Restart()
         {
             SceneManager.LoadScene("AquaGame");
         }
+
+        public void ExitButton()
+        {
+            Application.Quit();
+        }
+
+
     }
 }

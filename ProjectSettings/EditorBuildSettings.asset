@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/AquaGame_sumin/AquaGame.unity
+    path: Assets/AquaGame_sumin/Scene/Title.unity
+    guid: 2a3488c4b9c7f1449a174f4dcf6b2059
+  - enabled: 1
+    path: Assets/AquaGame_sumin/Scene/AquaGame.unity
     guid: 1a05f99b6de23f340a082e311468ae08
   m_configObjects: {}

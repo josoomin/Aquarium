@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6486972395040675287}
   - component: {fileID: 8007159358122206911}
   - component: {fileID: 1825349416540390793}
-  - component: {fileID: 4025007676371103009}
+  - component: {fileID: 1469504987050048919}
   m_Layer: 7
   m_Name: piranha
   m_TagString: Piranha
@@ -106,13 +106,14 @@ MonoBehaviour:
   _moveOrStop: 0
   _moveTime: 0
   _stayTime: 0
-  _time: 0
   _hungry: 100
+  _overTime: 0
   _dropCoinTime: 0
   _reTime: 0
   _eatMoveTime: 0
   _SilverCoin: {fileID: 2420515028461770928, guid: b3d9c118185d55440b04656be5da8668, type: 3}
   _GoldCoin: {fileID: 1570666523711736464, guid: 1dcf208eb647cc84597cd21da796a101, type: 3}
+  _myFoodNum: 0
 --- !u!50 &8007159358122206911
 Rigidbody2D:
   serializedVersion: 4
@@ -154,8 +155,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!70 &4025007676371103009
-CapsuleCollider2D:
+--- !u!61 &1469504987050048919
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -167,6 +168,16 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.040856425, y: 0.0054324227}
-  m_Size: {x: 0.72088057, y: 0.5713125}
-  m_Direction: 1
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.82, y: 0.58}
+    newSize: {x: 0.75, y: 0.75}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.82, y: 0.58}
+  m_EdgeRadius: 0
