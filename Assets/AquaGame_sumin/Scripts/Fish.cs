@@ -303,6 +303,8 @@ namespace josoomin
             _hungry = _fullHungry;
             _eat = false;
 
+            _myRigid.velocity = Vector3.zero;
+
             List<Food> foli = Aquarium.I._foodList;
             List<Fish> fili = Aquarium.I._fishList;
 
