@@ -25,6 +25,9 @@ namespace josoomin
 
         public GameObject _optionPage;
 
+        public Text _guppyPriceText;
+        public Text _piranhaPriceText;
+
         GameObject _foodArea;
 
         int _foodPrice = 5;
@@ -51,11 +54,13 @@ namespace josoomin
             _money = _startMoney;
             _clearScreen.SetActive(false);
             _gameOverScreen.SetActive(false);
+            _guppyPriceText.text = UI_Button.I._guppyPrice.ToString();
+            _piranhaPriceText.text = UI_Button.I._piranhaPrice.ToString();
         }
 
         void Update()
         {
-            _moneyText.text =  _money.ToString();
+            _moneyText.text = _money.ToString();
             GameClear();
             GameOver();
         }

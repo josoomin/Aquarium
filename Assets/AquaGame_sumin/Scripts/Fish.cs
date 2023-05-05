@@ -33,13 +33,13 @@ namespace josoomin
         int _fishDeleteTime = 0;
         [SerializeField] int _myFoodNum;
 
-        bool _eat;
+        bool _eat = false;
         bool _die = false;
 
         Renderer _fishColor;
 
-        float _minValue = 2.0f;
-        float _maxValue = 10.0f;
+        float _minValue = 1.0f;
+        float _maxValue = 2.0f;
 
         float _fullHungry = 25;
 
@@ -118,6 +118,7 @@ namespace josoomin
                 else if (_moveOrStop % 2 != 0)
                 {
                     _stayTime = Random.Range(_minValue, _maxValue);
+                    _myRigid.velocity = Vector3.zero;
 
                     while (_stayTime >= _overTime)
                     {
@@ -209,10 +210,6 @@ namespace josoomin
 
             if (_food != null && _die == false)
             {
-                //Vector3 direction = _food.transform.position - transform.position;
-                //direction.Normalize();
-                //_myRigid.AddForce(direction * _eatMoveSpeed, ForceMode2D.Force);
-
                 Vector3 direction = (_food.transform.position - transform.position).normalized; // 방향 벡터 계산
                 float distance = Vector3.Distance(transform.position, _food.transform.position); // 두 물체 간의 거리 계산
 
@@ -338,6 +335,7 @@ namespace josoomin
 
         IEnumerator Die()
         {
+            _myRigid.velocity = Vector3.zero;
             yield return new WaitForSeconds(_fishDeleteTime);
 
             while (_rend.color.a > 0)

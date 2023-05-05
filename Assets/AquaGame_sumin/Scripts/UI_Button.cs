@@ -6,22 +6,17 @@ namespace josoomin
 {
     public class UI_Button : MonoBehaviour
     {
+        public static UI_Button I;
+
         public GameObject _guppyPrefab;
         public GameObject _piranhaPrefab;
 
-        GameObject _cloneGuppy;
-
         public int _guppyPrice = 25;
-        public int _piranhaPrice = 100;
+        public int _piranhaPrice = 1000;
 
-        void Start()
+        private void Awake()
         {
-            
-        }
-
-        void Update()
-        {
-            
+            I = this;
         }
 
         public void CreateGuppy()
