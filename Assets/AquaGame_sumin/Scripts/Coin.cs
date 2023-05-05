@@ -6,10 +6,10 @@ namespace josoomin
 {
     public class Coin : MonoBehaviour
     {
-        int _coinDeleteTime = 0;
+        int _coinDeleteTime = 1;
         float _coinDown = 0.01f;
         int _silverCoin = 20;
-        int _goldCoin = 100;
+        int _goldCoin = 300;
 
         [SerializeField] bool _move = true;
         SpriteRenderer _sprRen;
