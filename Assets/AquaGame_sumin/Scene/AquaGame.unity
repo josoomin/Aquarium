@@ -607,7 +607,11 @@ MonoBehaviour:
   _guppyPriceText: {fileID: 1846666276}
   _piranhaPriceText: {fileID: 1150095994}
   _money: 0
+  _guppyPrice: 25
+  _piranhaPrice: 1000
   _moneyText: {fileID: 161970098}
+  _guppyPrefab: {fileID: 8007159358122206899, guid: 0bb5e01e1c1b45545b538c012bcba9d8, type: 3}
+  _piranhaPrefab: {fileID: 8007159358122206899, guid: 3b10117f2fc844547bf934713ae3aca3, type: 3}
   _foodPrefab: {fileID: 7252882100929889434, guid: 9782cc03d14ea1d4591dfe3c52f6525b, type: 3}
 --- !u!4 &478509084
 Transform:
@@ -3313,10 +3317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4154cfb89f332409d6367b234d8ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _guppyPrefab: {fileID: 8007159358122206899, guid: 0bb5e01e1c1b45545b538c012bcba9d8, type: 3}
-  _piranhaPrefab: {fileID: 8007159358122206899, guid: 3b10117f2fc844547bf934713ae3aca3, type: 3}
-  _guppyPrice: 25
-  _piranhaPrice: 1000
 --- !u!1 &2065143578
 GameObject:
   m_ObjectHideFlags: 0

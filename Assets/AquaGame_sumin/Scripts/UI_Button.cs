@@ -8,12 +8,6 @@ namespace josoomin
     {
         public static UI_Button I;
 
-        public GameObject _guppyPrefab;
-        public GameObject _piranhaPrefab;
-
-        public int _guppyPrice = 25;
-        public int _piranhaPrice = 1000;
-
         private void Awake()
         {
             I = this;
@@ -21,25 +15,25 @@ namespace josoomin
 
         public void CreateGuppy()
         {
-            if (Aquarium.I._money >= _guppyPrice)
+            if (Aquarium.I._money >= Aquarium.I._guppyPrice)
             {
                 Debug.Log("Create Guppy");
 
-                _Create(_guppyPrefab);
+                _Create(Aquarium.I._guppyPrefab);
 
-                Aquarium.I._money -= _guppyPrice;
+                Aquarium.I._money -= Aquarium.I._guppyPrice;
             }
         }
 
         public void CreatePiranha()
         {
-            if (Aquarium.I._money >= _piranhaPrice)
+            if (Aquarium.I._money >= Aquarium.I._piranhaPrice)
             {
                 Debug.Log("Create Piranha");
 
-                _Create(_piranhaPrefab);
+                _Create(Aquarium.I._piranhaPrefab);
 
-                Aquarium.I._money -= _piranhaPrice;
+                Aquarium.I._money -= Aquarium.I._piranhaPrice;
             }
         }
 
