@@ -9,7 +9,8 @@ namespace josoomin
         int _foodDeleteTime = 0;
         float _foodDown = 0.01f;
 
-        bool _move = true;
+        public bool _move = true;
+        bool _floor = false;
         SpriteRenderer _sprRen;
 
         public GameObject _eatMe;
@@ -21,15 +22,15 @@ namespace josoomin
 
         void Update()
         {
-            if (_move)
-                transform.Translate(0, -_foodDown, 0);
+            if (_move && _floor == false)
+               transform.Translate(0, -_foodDown, 0);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.tag == "Floor")
             {
-                _move = false;
+                _floor = true;
                 StartCoroutine(FadeAway());
             }
         }
@@ -56,7 +57,6 @@ namespace josoomin
 
                     foli.RemoveAt(i);
                     Destroy(gameObject);
-
                 }
             }
         }

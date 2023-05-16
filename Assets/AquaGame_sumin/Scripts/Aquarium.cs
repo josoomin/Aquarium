@@ -116,8 +116,19 @@ namespace josoomin
         public void Option()
         {
             Time.timeScale = 0;
+            
             _foodArea.SetActive(false);
             _optionPage.SetActive(true);
+
+            for (int i = 0; i < _foodList.Count; i++)
+            {
+                _foodList[i].GetComponent<Food>()._move = false;
+            }
+
+            for (int i = 0; i < _coinList.Count; i++)
+            {
+                _coinList[i].GetComponent<Coin>()._move = false;
+            }
         }
 
         public void BackButton()
@@ -125,6 +136,16 @@ namespace josoomin
             Time.timeScale = 1;
             _foodArea.SetActive(true);
             _optionPage.SetActive(false);
+
+            for (int i = 0; i < _foodList.Count; i++)
+            {
+                 _foodList[i].GetComponent<Food>()._move = true;
+            }
+
+            for (int i = 0; i < _coinList.Count; i++)
+            {
+                _coinList[i].GetComponent<Coin>()._move = true;
+            }
         }
 
         public void Restart()
@@ -136,7 +157,5 @@ namespace josoomin
         {
             Application.Quit();
         }
-
-
     }
 }

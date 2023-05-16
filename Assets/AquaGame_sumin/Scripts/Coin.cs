@@ -11,7 +11,8 @@ namespace josoomin
         int _silverCoin = 20;
         int _goldCoin = 300;
 
-        [SerializeField] bool _move = true;
+        public bool _move = true;
+        bool _floor = false;
         SpriteRenderer _sprRen;
 
         void Start()
@@ -21,7 +22,7 @@ namespace josoomin
 
         void Update()
         {
-            if (_move)
+            if (_move && _floor == false)
                 transform.Translate(0, -_coinDown, 0);
         }
 
@@ -29,7 +30,7 @@ namespace josoomin
         {
             if (other.gameObject.tag == "Floor")
             {
-                _move = false;
+                _floor = true;
                 StartCoroutine(FadeAway());
             }
         }
