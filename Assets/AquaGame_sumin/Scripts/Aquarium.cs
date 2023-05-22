@@ -45,6 +45,8 @@ namespace josoomin
         public GameObject _piranhaPrefab;
         public GameObject _foodPrefab;
 
+        
+
         public void Awake()
         {
             I = this;
@@ -99,8 +101,7 @@ namespace josoomin
                 _clearScreen.SetActive(true);
                 _foodArea.SetActive(false);
 
-                StopFood();
-                StopCoin();
+                StopItem();
 
                 if (Input.GetKey(KeyCode.R))
                 {
@@ -118,8 +119,7 @@ namespace josoomin
                 _gameOverScreen.SetActive(true);
                 _foodArea.SetActive(false);
 
-                StopFood();
-                StopCoin();
+                StopItem();
 
                 if (Input.GetKey(KeyCode.R))
                 {
@@ -135,8 +135,7 @@ namespace josoomin
             _foodArea.SetActive(false);
             _optionPage.SetActive(true);
 
-            StopFood();
-            StopCoin();
+            StopItem();
         }
 
         public void BackButton()
@@ -146,15 +145,7 @@ namespace josoomin
             _foodArea.SetActive(true);
             _optionPage.SetActive(false);
 
-            for (int i = 0; i < _foodList.Count; i++)
-            {
-                 _foodList[i].GetComponent<Food>()._move = true;
-            }
-
-            for (int i = 0; i < _coinList.Count; i++)
-            {
-                _coinList[i].GetComponent<Coin>()._move = true;
-            }
+            MoveItem();
         }
 
         public void Restart()
@@ -167,19 +158,29 @@ namespace josoomin
             Application.Quit();
         }
 
-        void StopFood()
+        void StopItem()
         {
             for (int i = 0; i < _foodList.Count; i++)
             {
                 _foodList[i].GetComponent<Food>()._move = false;
             }
-        }
 
-        void StopCoin()
-        {
             for (int i = 0; i < _coinList.Count; i++)
             {
                 _coinList[i].GetComponent<Coin>()._move = false;
+            }
+        }
+
+        void MoveItem()
+        {
+            for (int i = 0; i < _foodList.Count; i++)
+            {
+                _foodList[i].GetComponent<Food>()._move = true;
+            }
+
+            for (int i = 0; i < _coinList.Count; i++)
+            {
+                _coinList[i].GetComponent<Coin>()._move = true;
             }
         }
     }

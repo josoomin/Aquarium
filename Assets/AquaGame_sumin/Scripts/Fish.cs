@@ -36,8 +36,6 @@ namespace josoomin
         bool _eat = false;
         bool _die = false;
 
-        Renderer _fishColor;
-
         float _minValue = 1.0f;
         float _maxValue = 2.0f;
 
@@ -57,10 +55,9 @@ namespace josoomin
         {
             _hungry = _fullHungry;
             _myani = GetComponent<Animator>();
-            _fishColor = GetComponent<Renderer>();
             _myRigid = GetComponent<Rigidbody2D>();
             _rend = GetComponent<SpriteRenderer>();
-            moveRandom();
+            MoveRandom();
         }
 
         void Update()
@@ -68,7 +65,7 @@ namespace josoomin
             _reTime += Time.deltaTime;
             if (_reTime >= _moveTime && _eat == false && _die == false)
             {
-                moveRandom();
+                MoveRandom();
                 _reTime = 0;
             }
 
@@ -89,7 +86,7 @@ namespace josoomin
             }
         }
 
-        public void moveRandom()
+        public void MoveRandom()
         {
             _moveTime = Random.Range(_minValue, _maxValue);
 
@@ -143,11 +140,11 @@ namespace josoomin
                 EatToMove();
                 if (_hungry <= _hungryMiddle)
                 {
-                    _fishColor.material.color = Color.green;
+                    _rend.color = Color.green;
 
                     if (_hungry <= _hungryHigh)
                     {
-                        _fishColor.material.color = Color.white;
+                        _rend.color = Color.white;
                         gameObject.transform.position = transform.position;
                         _die = true;
                         _myani.SetTrigger("Die");
@@ -157,7 +154,7 @@ namespace josoomin
 
                 else
                 {
-                    _fishColor.material.color = Color.white;
+                    _rend.color = Color.white;
                 }
             }
         }
@@ -236,7 +233,6 @@ namespace josoomin
                 Vector2 pos1 = transform.position;
                 Vector2 pos2 = _food.transform.position;
                 Vector2 dir = pos1 - pos2;
-
 
                 if (dir.magnitude < 0.5f)
                 {

@@ -19,7 +19,7 @@ namespace josoomin
             {
                 Debug.Log("Create Guppy");
 
-                _Create(Aquarium.I._guppyPrefab);
+                Create(Aquarium.I._guppyPrefab);
 
                 Aquarium.I._money -= Aquarium.I._guppyPrice;
             }
@@ -31,13 +31,13 @@ namespace josoomin
             {
                 Debug.Log("Create Piranha");
 
-                _Create(Aquarium.I._piranhaPrefab);
+                Create(Aquarium.I._piranhaPrefab);
 
                 Aquarium.I._money -= Aquarium.I._piranhaPrice;
             }
         }
 
-        void _Create(GameObject prefab)
+        void Create(GameObject prefab)
         {
             float MinX = -5.0f;
             float MaxX = 5.0f;
