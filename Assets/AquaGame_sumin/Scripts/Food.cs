@@ -31,11 +31,11 @@ namespace josoomin
             if (other.gameObject.tag == "Floor")
             {
                 _floor = true;
-                StartCoroutine(FadeAway());
+                StartCoroutine(Delete());
             }
         }
 
-        IEnumerator FadeAway()
+        IEnumerator Delete()
         {
             yield return new WaitForSeconds(_foodDeleteTime);
             while (_sprRen.color.a > 0)

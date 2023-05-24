@@ -6,9 +6,6 @@ namespace josoomin
 {
     public class Piranha : Fish
     {
-        public void EatGuppy()
-        {
 
-        }
     }
 }

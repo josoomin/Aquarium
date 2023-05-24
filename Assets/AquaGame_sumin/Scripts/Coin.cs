@@ -31,11 +31,11 @@ namespace josoomin
             if (other.gameObject.tag == "Floor")
             {
                 _floor = true;
-                StartCoroutine(FadeAway());
+                StartCoroutine(Delete());
             }
         }
 
-        IEnumerator FadeAway()
+        IEnumerator Delete()
         {
             yield return new WaitForSeconds(_coinDeleteTime);
             while (_sprRen.color.a > 0)
@@ -45,19 +45,6 @@ namespace josoomin
 
                 _sprRen.color = color;
                 yield return null;
-            }
-            DeleteCoinList();
-        }
-
-        private void OnMouseDown()
-        {
-            if (gameObject.tag == "SilverCoin")
-            {
-                Aquarium.I._money += _silverCoin;
-            }
-            if (gameObject.tag == "GoldCoin")
-            {
-                Aquarium.I._money += _goldCoin;
             }
             DeleteCoinList();
         }
@@ -74,6 +61,19 @@ namespace josoomin
                     Destroy(gameObject);
                 }
             }
+        }
+
+        private void OnMouseDown()
+        {
+            if (gameObject.tag == "SilverCoin")
+            {
+                Aquarium.I._money += _silverCoin;
+            }
+            if (gameObject.tag == "GoldCoin")
+            {
+                Aquarium.I._money += _goldCoin;
+            }
+            DeleteCoinList();
         }
     }
 }
