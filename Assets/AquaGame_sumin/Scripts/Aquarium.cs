@@ -45,7 +45,6 @@ namespace josoomin
         public GameObject _piranhaPrefab;
         public GameObject _foodPrefab;
 
-        
 
         public void Awake()
         {

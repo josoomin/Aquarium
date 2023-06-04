@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 
 namespace josoomin
 {
@@ -31,7 +31,6 @@ namespace josoomin
 
         int _dropNowTime = 10;
         int _fishDeleteTime = 0;
-        [SerializeField] int _myFoodNum;
 
         bool _eat = false;
         bool _die = false;
@@ -47,9 +46,9 @@ namespace josoomin
         Rigidbody2D _myRigid;
         SpriteRenderer _rend;
 
-        Animator _myani;
+        [SerializeField] List<Guppy> guli = new List<Guppy>();
 
-        List<Guppy> guli = new List<Guppy>();
+        Animator _myani;
 
         void Start()
         {
@@ -72,18 +71,7 @@ namespace josoomin
             HungryGage();
             DropCoin();
 
-            if (Aquarium.I._fishList != null)
-            {
-                List<Fish> fili = Aquarium.I._fishList;
 
-                for (int i = 0; i < fili.Count; i++)
-                {
-                    if (fili[i].tag == "Guppy")
-                    {
-                        guli.Add(fili[i] as Guppy);
-                    }
-                }
-            }
         }
 
         public void MoveRandom()
@@ -200,7 +188,7 @@ namespace josoomin
                 SearchFood_Guppy();
             }
 
-            if (gameObject.tag == "Piranha" &&  _food == null && guli.Count > 0)
+            if (gameObject.tag == "Piranha" && _food == null)
             {
                 SearchFood_Piranha();
             }
@@ -241,7 +229,7 @@ namespace josoomin
                         SearchFood_Guppy();
                     }
 
-                    if (_food == null && guli.Count > 0)
+                    if (_food == null)
                     {
                         SearchFood_Piranha();
                     }
@@ -256,38 +244,90 @@ namespace josoomin
 
         void SearchFood_Guppy()
         {
-            List<Food> foli = Aquarium.I._foodList;
+            List<Food> foodList = Aquarium.I._foodList;
 
-            int rannum = Random.Range(0, foli.Count - 1);
-
-            if (foli[rannum]._eatMe == null && foli[rannum] != null)
+            foodList.Sort(delegate (Food a, Food b)
             {
-                foli[rannum]._eatMe = gameObject;
-                _food = foli[rannum].gameObject;
-                _myFoodNum = rannum;
-            }
+                return compare1(a, b);
+            });
 
-            else
+            for (int i = 0; i < foodList.Count; i++)
             {
-                return;
+                if (foodList[i] != null && _food == null)
+                {
+                    _food = foodList[i].gameObject;
+                }
+
+                else
+                {
+                    return;
+                }
             }
         }
 
         void SearchFood_Piranha()
         {
-            int rannum = Random.Range(0, guli.Count - 1);
-
-            if (guli[rannum]._eatMe == null && guli[rannum] != null)
+            if (Aquarium.I._fishList != null)
             {
-                guli[rannum]._eatMe = gameObject;
-                _food = guli[rannum].gameObject;
-                _myFoodNum = rannum;
+                List<Fish> fili = Aquarium.I._fishList;
+
+                for (int i = 0; i < fili.Count; i++)
+                {
+                    if (fili[i].tag == "Guppy")
+                    {
+                        guli.Add(fili[i] as Guppy);
+                    }
+                }
             }
 
-            else
+            guli.Sort(delegate (Guppy a, Guppy b)
             {
-                return;
+                return compare2(a, b);
+            });
+
+            for (int i = 0; i < guli.Count; i++)
+            {
+                if (guli[i] != null && _food == null)
+                {
+                    _food = guli[i].gameObject;
+                }
+
+                else
+                {
+                    return;
+                }
             }
+        }
+
+        int compare1(Food a, Food b)
+        {
+            Vector3 _a = a.transform.position;
+            Vector3 _b = b.transform.position;
+            Vector3 _me = transform.position;
+
+            float lengthAC = Vector3.Distance(_a, _me);
+            float lengthBC = Vector3.Distance(_b, _me);
+
+            return lengthAC < lengthBC ? -1 : 1;
+        }
+
+        int compare2(Guppy a, Guppy b)
+        {
+            if (a == null || b == null)
+            {
+                guli = new List<Guppy>();
+                _food = null;
+                return 0;
+            }
+
+            Vector3 _a = a.transform.position;
+            Vector3 _b = b.transform.position;
+            Vector3 _me = transform.position;
+
+            float lengthAC = Vector3.Distance(_a, _me);
+            float lengthBC = Vector3.Distance(_b, _me);
+
+            return lengthAC < lengthBC ? -1 : 1;
         }
 
         void Eat()
@@ -307,7 +347,7 @@ namespace josoomin
                 {
                     if (foli[i].gameObject == _food)
                     {
-                        Aquarium.I._foodList.RemoveAt(i);
+                        foli.RemoveAt(i);
                         Destroy(_food);
                         _food = null;
                     }
@@ -320,13 +360,13 @@ namespace josoomin
                 {
                     if (fili[i].gameObject == _food)
                     {
-                        Aquarium.I._fishList.RemoveAt(i);
+                        fili.RemoveAt(i);
                         Destroy(_food);
                         _food = null;
                     }
                 }
+                guli = new List<Guppy>();
             }
-
         }
 
         IEnumerator Die()
