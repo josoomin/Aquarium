@@ -16,7 +16,7 @@ namespace josoomin
         [SerializeField] int _moveOrStop;
         [SerializeField] float _moveTime;
         [SerializeField] float _stayTime;
-        [SerializeField] float _hungry;
+        public float _hungry;
         [SerializeField] float _overTime = 0;
         [SerializeField] float _dropCoinTime = 0;
         [SerializeField] float _reTime = 0;
@@ -25,7 +25,7 @@ namespace josoomin
         public GameObject _SilverCoin;
         public GameObject _GoldCoin;
 
-        int _hungryLow = 20;
+        public int _hungryLow = 20;
         int _hungryMiddle = 10;
         int _hungryHigh = 0;
 
@@ -242,7 +242,7 @@ namespace josoomin
             }
         }
 
-        void SearchFood_Guppy()
+        public void SearchFood_Guppy()
         {
             List<Food> foodList = Aquarium.I._foodList;
 
@@ -265,7 +265,7 @@ namespace josoomin
             }
         }
 
-        void SearchFood_Piranha()
+        public void SearchFood_Piranha()
         {
             if (Aquarium.I._fishList != null)
             {

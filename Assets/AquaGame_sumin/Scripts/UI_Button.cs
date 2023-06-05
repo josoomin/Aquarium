@@ -23,6 +23,17 @@ namespace josoomin
 
                 Aquarium.I._money -= Aquarium.I._guppyPrice;
             }
+
+            List<Fish> fili = Aquarium.I._fishList;
+
+            for (int i = 0; i < fili.Count; i++)
+            {
+                if (fili[i].gameObject.tag == "Piranha" && fili[i]._hungry <= fili[i]._hungryLow)
+                {
+                    fili[i]._food = null;
+                    fili[i].SearchFood_Piranha();
+                }
+            }
         }
 
         public void CreatePiranha()
