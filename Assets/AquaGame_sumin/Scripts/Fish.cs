@@ -248,7 +248,7 @@ namespace josoomin
 
             foodList.Sort(delegate (Food a, Food b)
             {
-                return compare1(a, b);
+                return compare(a.gameObject, b.gameObject);
             });
 
             for (int i = 0; i < foodList.Count; i++)
@@ -282,7 +282,7 @@ namespace josoomin
 
             guli.Sort(delegate (Guppy a, Guppy b)
             {
-                return compare2(a, b);
+                return compare(a.gameObject, b.gameObject);
             });
 
             for (int i = 0; i < guli.Count; i++)
@@ -299,21 +299,9 @@ namespace josoomin
             }
         }
 
-        int compare1(Food a, Food b)
+        int compare(GameObject a, GameObject b)
         {
-            Vector3 _a = a.transform.position;
-            Vector3 _b = b.transform.position;
-            Vector3 _me = transform.position;
-
-            float lengthAC = Vector3.Distance(_a, _me);
-            float lengthBC = Vector3.Distance(_b, _me);
-
-            return lengthAC < lengthBC ? -1 : 1;
-        }
-
-        int compare2(Guppy a, Guppy b)
-        {
-            if (a == null || b == null)
+            if (gameObject.tag == "Piranha" && a == null || b == null)
             {
                 guli = new List<Guppy>();
                 _food = null;
